@@ -1,0 +1,74 @@
+// Código original sem ATS
+
+%{
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void yyerror(const char *s);
+int yylex();
+%}
+
+%union {
+    char *sval;
+    int ival;
+}
+
+%token VAR PRINT IDENTIFIER NUMBER
+%token EQUALS SEMICOLON PLUS MINUS TIMES DIVIDE
+
+%left PLUS MINUS
+%left TIMES DIVIDE
+
+%type <sval> program statements statement declaration assignment print expression
+%type <ival> NUMBER
+%type <sval> IDENTIFIER
+
+%%
+
+program:
+    statements { printf("#include <iostream>\nint main() {\n%sreturn 0;\n}\n", $1); }
+    ;
+
+statements:
+    statement SEMICOLON statements { asprintf(&$$, "%s\n%s", $1, $3); }
+    | statement SEMICOLON { $$ = strdup($1); }
+    ;
+
+statement:
+    declaration { $$ = strdup($1); }
+    | assignment { $$ = strdup($1); }
+    | print { $$ = strdup($1); }
+    ;
+
+declaration:
+    VAR IDENTIFIER EQUALS expression { asprintf(&$$, "int %s = %s;", $2, $4); }
+    ;
+
+assignment:
+    IDENTIFIER EQUALS expression { asprintf(&$$, "%s = %s;", $1, $3); }
+    ;
+
+print:
+    PRINT IDENTIFIER { asprintf(&$$, "std::cout << %s << std::endl;", $2); }
+    ;
+
+expression:
+    NUMBER { asprintf(&$$, "%d", $1); }
+    | IDENTIFIER { $$ = strdup($1); }
+    | expression PLUS expression { asprintf(&$$, "(%s + %s)", $1, $3); }
+    | expression MINUS expression { asprintf(&$$, "(%s - %s)", $1, $3); }
+    | expression TIMES expression { asprintf(&$$, "(%s * %s)", $1, $3); }
+    | expression DIVIDE expression { asprintf(&$$, "(%s / %s)", $1, $3); }
+    ;
+
+%%
+
+void yyerror(const char *s) {
+    fprintf(stderr, "Erro: %s\n", s);
+}
+
+int main() {
+    yyparse();
+    return 0;
+}

@@ -1,0 +1,10 @@
+Execuções do compilador:
+
+Compilando: lexical, parser e tradução
+bison -d parser.y
+flex lexer.l
+g++ -std=c++14 -o translator parser.tab.c lex.yy.c -lfl
+
+Passando entrada para o tradutor
+echo "var x = 10; var y = x + 5; print y;" | ./translator
+echo "var x = 10; var y =5; var z = x + y; print z;" | ./translator

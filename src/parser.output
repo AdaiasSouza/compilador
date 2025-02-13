@@ -1,0 +1,377 @@
+Conflict in state 23 between rule 12 and token PLUS resolved as reduce.
+Conflict in state 23 between rule 12 and token MINUS resolved as reduce.
+Conflict in state 23 between rule 12 and token TIMES resolved as shift.
+Conflict in state 23 between rule 12 and token DIVIDE resolved as shift.
+Conflict in state 24 between rule 13 and token PLUS resolved as reduce.
+Conflict in state 24 between rule 13 and token MINUS resolved as reduce.
+Conflict in state 24 between rule 13 and token TIMES resolved as shift.
+Conflict in state 24 between rule 13 and token DIVIDE resolved as shift.
+Conflict in state 25 between rule 14 and token PLUS resolved as reduce.
+Conflict in state 25 between rule 14 and token MINUS resolved as reduce.
+Conflict in state 25 between rule 14 and token TIMES resolved as reduce.
+Conflict in state 25 between rule 14 and token DIVIDE resolved as reduce.
+Conflict in state 26 between rule 15 and token PLUS resolved as reduce.
+Conflict in state 26 between rule 15 and token MINUS resolved as reduce.
+Conflict in state 26 between rule 15 and token TIMES resolved as reduce.
+Conflict in state 26 between rule 15 and token DIVIDE resolved as reduce.
+
+Grammar
+rule 1    program -> statements
+rule 2    statements -> statement SEMICOLON statements
+rule 3    statements -> statement SEMICOLON
+rule 4    statement -> declaration
+rule 5    statement -> assignment
+rule 6    statement -> print
+rule 7    declaration -> VAR IDENTIFIER EQUALS expression
+rule 8    assignment -> IDENTIFIER EQUALS expression
+rule 9    print -> PRINT IDENTIFIER
+rule 10   expression -> NUMBER
+rule 11   expression -> IDENTIFIER
+rule 12   expression -> expression PLUS expression
+rule 13   expression -> expression MINUS expression
+rule 14   expression -> expression TIMES expression
+rule 15   expression -> expression DIVIDE expression
+
+Terminals, with rules where they appear
+
+$ (-1)
+error (256)
+VAR (258) 7
+PRINT (259) 9
+IDENTIFIER (260) 7 8 9 11
+NUMBER (261) 10
+EQUALS (262) 7 8
+SEMICOLON (263) 2 3
+PLUS (264) 12
+MINUS (265) 13
+TIMES (266) 14
+DIVIDE (267) 15
+
+Nonterminals, with rules where they appear
+
+program (13)
+    on left: 1
+statements (14)
+    on left: 2 3, on right: 1 2
+statement (15)
+    on left: 4 5 6, on right: 2 3
+declaration (16)
+    on left: 7, on right: 4
+assignment (17)
+    on left: 8, on right: 5
+print (18)
+    on left: 9, on right: 6
+expression (19)
+    on left: 10 11 12 13 14 15, on right: 7 8 12 13 14 15
+
+
+state 0
+
+    VAR 	shift, and go to state 1
+    PRINT	shift, and go to state 2
+    IDENTIFIER	shift, and go to state 3
+
+    program	go to state 27
+    statements	go to state 4
+    statement	go to state 5
+    declaration	go to state 6
+    assignment	go to state 7
+    print	go to state 8
+
+
+
+state 1
+
+    declaration  ->  VAR . IDENTIFIER EQUALS expression   (rule 7)
+
+    IDENTIFIER	shift, and go to state 9
+
+
+
+state 2
+
+    print  ->  PRINT . IDENTIFIER   (rule 9)
+
+    IDENTIFIER	shift, and go to state 10
+
+
+
+state 3
+
+    assignment  ->  IDENTIFIER . EQUALS expression   (rule 8)
+
+    EQUALS	shift, and go to state 11
+
+
+
+state 4
+
+    program  ->  statements .   (rule 1)
+
+    $default	reduce using rule 1 (program)
+
+
+
+state 5
+
+    statements  ->  statement . SEMICOLON statements   (rule 2)
+    statements  ->  statement . SEMICOLON   (rule 3)
+
+    SEMICOLON	shift, and go to state 12
+
+
+
+state 6
+
+    statement  ->  declaration .   (rule 4)
+
+    $default	reduce using rule 4 (statement)
+
+
+
+state 7
+
+    statement  ->  assignment .   (rule 5)
+
+    $default	reduce using rule 5 (statement)
+
+
+
+state 8
+
+    statement  ->  print .   (rule 6)
+
+    $default	reduce using rule 6 (statement)
+
+
+
+state 9
+
+    declaration  ->  VAR IDENTIFIER . EQUALS expression   (rule 7)
+
+    EQUALS	shift, and go to state 13
+
+
+
+state 10
+
+    print  ->  PRINT IDENTIFIER .   (rule 9)
+
+    $default	reduce using rule 9 (print)
+
+
+
+state 11
+
+    assignment  ->  IDENTIFIER EQUALS . expression   (rule 8)
+
+    IDENTIFIER	shift, and go to state 14
+    NUMBER	shift, and go to state 15
+
+    expression	go to state 16
+
+
+
+state 12
+
+    statements  ->  statement SEMICOLON . statements   (rule 2)
+    statements  ->  statement SEMICOLON .   (rule 3)
+
+    VAR 	shift, and go to state 1
+    PRINT	shift, and go to state 2
+    IDENTIFIER	shift, and go to state 3
+
+    $default	reduce using rule 3 (statements)
+
+    statements	go to state 17
+    statement	go to state 5
+    declaration	go to state 6
+    assignment	go to state 7
+    print	go to state 8
+
+
+
+state 13
+
+    declaration  ->  VAR IDENTIFIER EQUALS . expression   (rule 7)
+
+    IDENTIFIER	shift, and go to state 14
+    NUMBER	shift, and go to state 15
+
+    expression	go to state 18
+
+
+
+state 14
+
+    expression  ->  IDENTIFIER .   (rule 11)
+
+    $default	reduce using rule 11 (expression)
+
+
+
+state 15
+
+    expression  ->  NUMBER .   (rule 10)
+
+    $default	reduce using rule 10 (expression)
+
+
+
+state 16
+
+    assignment  ->  IDENTIFIER EQUALS expression .   (rule 8)
+    expression  ->  expression . PLUS expression   (rule 12)
+    expression  ->  expression . MINUS expression   (rule 13)
+    expression  ->  expression . TIMES expression   (rule 14)
+    expression  ->  expression . DIVIDE expression   (rule 15)
+
+    PLUS	shift, and go to state 19
+    MINUS	shift, and go to state 20
+    TIMES	shift, and go to state 21
+    DIVIDE	shift, and go to state 22
+
+    $default	reduce using rule 8 (assignment)
+
+
+
+state 17
+
+    statements  ->  statement SEMICOLON statements .   (rule 2)
+
+    $default	reduce using rule 2 (statements)
+
+
+
+state 18
+
+    declaration  ->  VAR IDENTIFIER EQUALS expression .   (rule 7)
+    expression  ->  expression . PLUS expression   (rule 12)
+    expression  ->  expression . MINUS expression   (rule 13)
+    expression  ->  expression . TIMES expression   (rule 14)
+    expression  ->  expression . DIVIDE expression   (rule 15)
+
+    PLUS	shift, and go to state 19
+    MINUS	shift, and go to state 20
+    TIMES	shift, and go to state 21
+    DIVIDE	shift, and go to state 22
+
+    $default	reduce using rule 7 (declaration)
+
+
+
+state 19
+
+    expression  ->  expression PLUS . expression   (rule 12)
+
+    IDENTIFIER	shift, and go to state 14
+    NUMBER	shift, and go to state 15
+
+    expression	go to state 23
+
+
+
+state 20
+
+    expression  ->  expression MINUS . expression   (rule 13)
+
+    IDENTIFIER	shift, and go to state 14
+    NUMBER	shift, and go to state 15
+
+    expression	go to state 24
+
+
+
+state 21
+
+    expression  ->  expression TIMES . expression   (rule 14)
+
+    IDENTIFIER	shift, and go to state 14
+    NUMBER	shift, and go to state 15
+
+    expression	go to state 25
+
+
+
+state 22
+
+    expression  ->  expression DIVIDE . expression   (rule 15)
+
+    IDENTIFIER	shift, and go to state 14
+    NUMBER	shift, and go to state 15
+
+    expression	go to state 26
+
+
+
+state 23
+
+    expression  ->  expression . PLUS expression   (rule 12)
+    expression  ->  expression PLUS expression .   (rule 12)
+    expression  ->  expression . MINUS expression   (rule 13)
+    expression  ->  expression . TIMES expression   (rule 14)
+    expression  ->  expression . DIVIDE expression   (rule 15)
+
+    TIMES	shift, and go to state 21
+    DIVIDE	shift, and go to state 22
+
+    $default	reduce using rule 12 (expression)
+
+
+
+state 24
+
+    expression  ->  expression . PLUS expression   (rule 12)
+    expression  ->  expression . MINUS expression   (rule 13)
+    expression  ->  expression MINUS expression .   (rule 13)
+    expression  ->  expression . TIMES expression   (rule 14)
+    expression  ->  expression . DIVIDE expression   (rule 15)
+
+    TIMES	shift, and go to state 21
+    DIVIDE	shift, and go to state 22
+
+    $default	reduce using rule 13 (expression)
+
+
+
+state 25
+
+    expression  ->  expression . PLUS expression   (rule 12)
+    expression  ->  expression . MINUS expression   (rule 13)
+    expression  ->  expression . TIMES expression   (rule 14)
+    expression  ->  expression TIMES expression .   (rule 14)
+    expression  ->  expression . DIVIDE expression   (rule 15)
+
+
+    $default	reduce using rule 14 (expression)
+
+
+
+state 26
+
+    expression  ->  expression . PLUS expression   (rule 12)
+    expression  ->  expression . MINUS expression   (rule 13)
+    expression  ->  expression . TIMES expression   (rule 14)
+    expression  ->  expression . DIVIDE expression   (rule 15)
+    expression  ->  expression DIVIDE expression .   (rule 15)
+
+
+    $default	reduce using rule 15 (expression)
+
+
+
+state 27
+
+    $   	go to state 28
+
+
+
+state 28
+
+    $   	go to state 29
+
+
+
+state 29
+
+    $default	accept
